@@ -1,7 +1,7 @@
 Name:		fuse-exfat
 Summary:	Free exFAT file system implementation
-Version:	0.9.4
-Release:	3%{?dist}.1
+Version:	0.9.5
+Release:	1%{?dist}.R
 
 License:	GPLv3+
 Group:		System Environment/Base
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/mount.exfat-fuse.8*
 
 %changelog
+* Thu Jul  7 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.9.5-1.R
+- update to 0.9.5
+
 * Thu Mar 17 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.9.4-3.1
 - bump release for rebuild
 
