@@ -1,19 +1,21 @@
-Name:		fuse-exfat
-Summary:	Free exFAT file system implementation
-Version:	0.9.5
-Release:	1%{?dist}.R
+Name:       fuse-exfat
+Summary:    Free exFAT file system implementation
+Summary(ru):Свободная имплементация файловой системы exFAT
+Version:    0.9.6
+Release:    1%{?dist}.R
 
-License:	GPLv3+
-Group:		System Environment/Base
-Source0:	http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
-URL:		http://code.google.com/p/exfat/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+License:    GPLv3+
+Group:      System Environment/Base
+Source0:    http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
+Source100:  README.RFRemix
+URL:        http://code.google.com/p/exfat/
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:	fuse-devel >= 2.6
-BuildRequires:	scons
-BuildRequires:	gzip
+BuildRequires:  fuse-devel >= 2.6
+BuildRequires:  scons
+BuildRequires:  gzip
 
-Requires:	fuse >= 2.6
+Requires:   fuse >= 2.6
 
 %description
 This driver is the first free exFAT file system implementation with write
@@ -21,15 +23,22 @@ support. exFAT is a simple file system created by Microsoft. It is intended
 to replace FAT32 removing some of it's limitations. exFAT is a standard FS
 for SDXC memory cards.
 
+%description -l ru
+Данный драйвер является первой свободной имплементацией файловой системы
+exFAT с поддержкой записи. exFAT это простая файловая система, созданная
+Microsoft. Она предназначена для замены FAT32 и снимает некоторые её
+ограничения. exFAT - стандартная файловая система для карт памяти SDXC.
+
 %prep
 %setup -q
 
 %build
 scons
+cp %{SOURCE100} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-scons install DESTDIR=$RPM_BUILD_ROOT/sbin
+scons install DESTDIR=$RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT/usr/share/man/man8/
 install -m 0644 -p fuse/mount.exfat-fuse.8 $RPM_BUILD_ROOT/usr/share/man/man8
 
@@ -38,12 +47,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc COPYING
-/sbin/mount.exfat-fuse
-/sbin/mount.exfat
+%doc COPYING README.RFRemix
+%{_sbindir}/mount.exfat-fuse
+%{_sbindir}/mount.exfat
 %{_mandir}/man8/mount.exfat-fuse.8*
 
 %changelog
+* Tue Jun 17 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.9.6-1.R
+- update to 0.9.6
+
 * Thu Jul  7 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.9.5-1.R
 - update to 0.9.5
 
