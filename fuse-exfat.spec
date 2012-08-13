@@ -1,15 +1,13 @@
 Name:       fuse-exfat
 Summary:    Free exFAT file system implementation
 Summary(ru):Свободная имплементация файловой системы exFAT
-Version:    0.9.7
+Version:    0.9.8
 Release:    1%{?dist}
 
 License:    GPLv3+
 Group:      System Environment/Base
 Source0:    http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
-Source100:  README.RFRemix
 URL:        http://code.google.com/p/exfat/
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  fuse-devel >= 2.6
 BuildRequires:  scons
@@ -34,7 +32,6 @@ Microsoft. Она предназначена для замены FAT32 и сни
 
 %build
 scons
-cp %{SOURCE100} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -42,17 +39,17 @@ scons install DESTDIR=$RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT/usr/share/man/man8/
 install -m 0644 -p fuse/mount.exfat-fuse.8 $RPM_BUILD_ROOT/usr/share/man/man8
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,-)
-%doc COPYING README.RFRemix
+%doc COPYING
 %{_sbindir}/mount.exfat-fuse
 %{_sbindir}/mount.exfat
 %{_mandir}/man8/mount.exfat-fuse.8*
 
 %changelog
+* Sun Aug 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.9.8-1.R
+- update to 0.9.8
+
 * Tue Mar 13 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.9.7-1.R
 - update to 0.9.7
 
