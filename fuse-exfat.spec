@@ -1,7 +1,7 @@
 Name:       fuse-exfat
 Summary:    Free exFAT file system implementation
 Summary(ru):Свободная имплементация файловой системы exFAT
-Version:    1.0.0
+Version:    1.0.1
 Release:    1%{?dist}
 
 License:    GPLv3+
@@ -46,6 +46,9 @@ install -m 0644 -p fuse/mount.exfat-fuse.8 $RPM_BUILD_ROOT/usr/share/man/man8
 %{_mandir}/man8/mount.exfat-fuse.8*
 
 %changelog
+* Wed Mar 20 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.1-1.R
+- update to 1.0.1
+
 * Mon Jan 21 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.0-1.R
 - update to 1.0.0
 
