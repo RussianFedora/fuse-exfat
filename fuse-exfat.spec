@@ -1,18 +1,16 @@
-Name:       fuse-exfat
-Summary:    Free exFAT file system implementation
-Summary(ru):Свободная имплементация файловой системы exFAT
-Version:    1.0.1
-Release:    1%{?dist}
+Name:           fuse-exfat
+Summary:        Free exFAT file system implementation
+Summary(ru):    Свободная имплементация файловой системы exFAT
+Version:        1.2.4
+Release:        1%{?dist}
 
-License:    GPLv3+
-Group:      System Environment/Base
-Source0:    http://exfat.googlecode.com/files/fuse-exfat-%{version}.tar.gz
-URL:        http://code.google.com/p/exfat/
+License:        GPLv2+
+Group:          System Environment/Base
+Source0:        https://github.com/relan/exfat/releases/download/v%{version}/fuse-exfat-%{version}.tar.gz
+URL:            https://github.com/relan/exfat
 
-BuildRequires:  fuse-devel >= 2.6
-BuildRequires:  scons
+BuildRequires:  pkgconfig(fuse)
 
-Requires:   fuse >= 2.6
 
 %description
 This driver is the first free exFAT file system implementation with write
@@ -30,22 +28,36 @@ Microsoft. Она предназначена для замены FAT32 и сни
 %setup -q
 
 %build
-scons
+%configure
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-scons install DESTDIR=$RPM_BUILD_ROOT%{_sbindir}
-mkdir -p $RPM_BUILD_ROOT/usr/share/man/man8/
-install -m 0644 -p fuse/mount.exfat-fuse.8 $RPM_BUILD_ROOT/usr/share/man/man8
+%make_install INSTALL="install -p"
 
 
 %files
-%doc COPYING
+%license COPYING
 %{_sbindir}/mount.exfat-fuse
 %{_sbindir}/mount.exfat
 %{_mandir}/man8/mount.exfat-fuse.8*
 
 %changelog
+* Thu Jun 23 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 1.2.4-1
+- Clean spec
+- Update to 1.2.4
+
+* Wed Mar 30 2016 Orion Poplawski <orion@cora.nwra.com> - 1.2.3-1
+- Update to 1.2.3
+
+* Sat Nov 14 2015 Nicolas Chauvet <kwizart@gmail.com> - 1.2.2-1
+- Update to 1.2.2
+
+* Sat Dec 20 2014 TingPing <tingping@tingping.se> - 1.1.0-1
+- Update to 1.1.0
+
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Wed Mar 20 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.1-1.R
 - update to 1.0.1
 
